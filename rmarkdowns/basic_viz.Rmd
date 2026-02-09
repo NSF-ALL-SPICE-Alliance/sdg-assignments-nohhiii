@@ -131,6 +131,15 @@ Cool! It seems that the darkest blue points (countries with the lowest SDG 5 sco
 #### <span style="color: red;">Challenge 1</span>
 Create a scatterplot using two different SDG scores. Then, color the points by using a third SDG score. In a couple of sentences, describe what you see.
 
+```{r}
+ggplot(data = sdr_data, aes(x= goal_13_score, y = goal_16_score, color = goal_9_score)) +
+  geom_point()
+```
+
+```{r}
+#INTERPRETATION: The scatter plot above measures the relationship between SDG goal 13 (Climate Action) and SDG goal 16 (Peace, justice and strong institutions), colored in a gradient by SDG goal 9 (Industry, innovation and infrastructure). Looking at the plot, it appears that the countries with the highest SDG goal 16 and SDG goal 9 scores (light blue) fall within the score range 50-75 for SDG goal 13. Meanwhile, countries that scored the highest for SDG 13 scores (80-100) had the lowest SDG goal 16 and SDG goal 9 scores (showed a declining pattern with higher SDG 13 points becoming darker and positioning lower for SDG 16). After viewing the SDG map, it appears that a lot of countries from the Sub-Saharan Africa region achieved SDG goal 13, but unfortunately still face challenges in SDG goal 16 and SDG goal 9.
+```
+
 ### Bar Chart
 
 When should we use a **bar chart**?
@@ -190,6 +199,16 @@ As we can see in the Oceania region, most Countries do not have the necessary da
 #### <span style="color: red;">Challenge 2</span>
 Create a new bar chart with countries only from the MENA region. 
 
+```{r}
+MENA_sdr_data <- sdr_data %>% 
+  filter(regions_used_for_the_sdr == "MENA")
+
+ggplot(sdr_data, aes(x= goal_3_score, y = country)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~regions_used_for_the_sdr, scales = "free_y") + 
+  theme(axis.text.y = element_text(size = 4))
+```
+
 ### Histogram
 
 When do we use a **histogram**?
@@ -224,3 +243,13 @@ Countries that fall in the higher end of the Goal 4 spectrum belong to the OECD 
 
 #### <span style="color: red;">Challenge 3</span>
 Make a histogram for a different SDG score. Then, fill by region. In a couple of sentences, describe any interesting trends or what you notice from your new histogram.
+
+```{r}
+ggplot(sdr_data, aes(x = goal_12_score, fill=regions_used_for_the_sdr)) + 
+  geom_histogram(bins=33, color="black")
+```
+
+```{r}
+#INTERPRETATION: The histogram plot above measures various regions' compliance with the SDG goal 12 (Responsible Consumption and Production). From the data above, it appears that the regions of Sub-Sahara Africa and a few from South & East Asia scored the highest, while other countries such as the those belonging to the OECD-- though scattered from >40 to <90-- tended to hold some of the lowest scores. 
+```
+
